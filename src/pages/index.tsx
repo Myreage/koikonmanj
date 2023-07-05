@@ -1,40 +1,61 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { api } from "~/utils/api";
+import RestaurantCard from "./RestaurantCard";
 
-export default function Home() {
+const Home = () => {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      void router.push("/login");
+    }
+  }, [status, router]);
   const hello = api.example.randomSentence.useQuery();
 
   return (
     <>
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            Koi<span className="text-[hsl(58,96%,59%)]">kon</span>manj
-          </h1>
-          
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello.data ? hello.data : ""}
-            </p>
-          </div>
-        </div>
+      <div className="flex flex-col items-center gap-2">
+        <p className="pb-10 text-2xl">{hello.data ? hello.data : ""}</p>
+      </div>
+      <div className="grid w-full grid-cols-4 gap-4">
+       <RestaurantCard
+          name="🍜 Collines d'Asie"
+          numberOfReviews={89}
+          photoUrl="/collines.jpeg"
+          priceRange="€"
+          rating={4}
+          tags={["healthy", "soupes", "nouilles", "asiatique"]}
+        />
+        <RestaurantCard
+          name="🍚 Gyudon Bar"
+          numberOfReviews={6}
+          photoUrl="/gyudon_bar.png"
+          priceRange="€€"
+          rating={4.3}
+          tags={["healthy", "bowl", "asiatique"]}
+        />
+        <RestaurantCard
+          name="🍕 Constantia"
+          numberOfReviews={46}
+          photoUrl="/constantia.jpeg"
+          priceRange="€"
+          rating={4.7}
+          tags={["italien", "pizza"]}
+        />
+                <RestaurantCard
+          name="🍔 Koff"
+          numberOfReviews={73}
+          photoUrl="/koff.jpeg"
+          priceRange="€€"
+          rating={4.2}
+          tags={["burger", "fat"]}
+        />
+      </div>
     </>
   );
-}
+};
 
-export function AuthShowcase() {
-  const { data: sessionData } = useSession();
-
-  return (
-    <div>
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Bonjour {sessionData.user?.name} ! ✨</span>}
-      </p>
-      <button
-        className="rounded-lg bg-white/10 px-8 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Se déconnecter" : "Se connecter"}
-      </button>
-    </div>
-  );
-}
+export default Home;

@@ -1,7 +1,6 @@
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import { AuthShowcase } from ".";
 
 type Props = {
   children: React.ReactNode;
@@ -17,34 +16,31 @@ export const Layout = ({ children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <nav className="flex flex-wrap items-center justify-between bg-blue-900 p-3">
-        <div className="mr-6 flex flex-shrink-0 items-center text-white">
-          <span className="text-xl font-semibold tracking-tight">
+        <div className="mr-12 flex flex-shrink-0 items-center text-white">
+          <span className="text-4xl font-semibold tracking-tight">
             Koi<span className="text-[hsl(58,96%,59%)]">kon</span>manj
           </span>
         </div>
         <div className="block w-full flex-grow lg:flex lg:w-auto lg:items-center">
-          <div className="text-sm lg:flex-grow">
+          <div className="text-lg lg:flex-grow">
             <Link
               href="/about"
               className="mr-4 mt-4 block text-white hover:text-yellow-400 lg:mt-0 lg:inline-block"
             >
               About
             </Link>
-            {status === "authenticated" && (
-              <Link
-                href="/about"
-                className="mr-4 mt-4 block text-white hover:text-yellow-400 lg:mt-0 lg:inline-block"
-              >
-                About
-              </Link>
-            )}
           </div>
-          <div className='inline-block '>
-          <AuthShowcase />
-          </div>
+          {status === "authenticated" && <div className="inline-block ">
+            <button
+              className="rounded-lg bg-white/10 px-8 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+              onClick={() => void signOut()}
+            >
+              Se déconnecter
+            </button>
+          </div>}
         </div>
       </nav>
-      <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#1a31b4] to-[#050022] px-10 py-10">
+      <main className="items-center  px-10 py-10">
         {children}
       </main>
     </>

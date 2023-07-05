@@ -1,0 +1,12 @@
+{
+    "eslint.nodePath": "node_modules",
+    "prettier.prettierPath": "node_modules/prettier/index.js",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "git.autofetch": true,
+  }
