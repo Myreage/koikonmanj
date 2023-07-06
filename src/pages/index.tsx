@@ -21,13 +21,15 @@ const Home = () => {
         <p className="pb-10 text-2xl">{hello.data ? hello.data : ""}</p>
       </div>
       <div className="grid w-full grid-cols-4 gap-4">
-       <RestaurantCard
+        <RestaurantCard
           name="🍜 Collines d'Asie"
           numberOfReviews={89}
           photoUrl="/collines.jpeg"
           priceRange="€"
           rating={4}
           tags={["healthy", "soupes", "nouilles", "asiatique"]}
+          speedOfPreparation={4}
+          timeToWalkInMn={2}
         />
         <RestaurantCard
           name="🍚 Gyudon Bar"
@@ -36,6 +38,8 @@ const Home = () => {
           priceRange="€€"
           rating={4.3}
           tags={["healthy", "bowl", "asiatique"]}
+          speedOfPreparation={2}
+          timeToWalkInMn={10}
         />
         <RestaurantCard
           name="🍕 Constantia"
@@ -44,14 +48,18 @@ const Home = () => {
           priceRange="€"
           rating={4.7}
           tags={["italien", "pizza"]}
+          speedOfPreparation={1}
+          timeToWalkInMn={5}
         />
-                <RestaurantCard
+        <RestaurantCard
           name="🍔 Koff"
           numberOfReviews={73}
           photoUrl="/koff.jpeg"
           priceRange="€€"
           rating={4.2}
           tags={["burger", "fat"]}
+          speedOfPreparation={3}
+          timeToWalkInMn={10}
         />
       </div>
     </>

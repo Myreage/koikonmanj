@@ -7,6 +7,8 @@ type Props = {
   rating: number;
   numberOfReviews: number;
   priceRange: "€" | "€€" | "€€€" | "€€€€";
+  speedOfPreparation: 1 | 2 | 3 | 4 | 5;
+  timeToWalkInMn: number;
 };
 
 const Tag = ({ tag }: { tag: string }) => (
@@ -22,10 +24,12 @@ const RestaurantCard = ({
   priceRange,
   rating,
   tags,
+  speedOfPreparation,
+  timeToWalkInMn,
 }: Props) => {
   return (
     <div className="rounded-lg bg-orange-50 shadow-md hover:cursor-pointer hover:bg-orange-100 hover:shadow-2xl">
-      <div className="relative h-40 overflow-hidden">
+      <div className="relative h-40 overflow-hidden rounded-t-lg">
         <Image
           src={photoUrl}
           alt={name}
@@ -38,16 +42,32 @@ const RestaurantCard = ({
       <h1 className="text-center text-2xl font-medium tracking-tight">
         {name}
       </h1>
-      <div className="flex p-5">
-        <div className="w-3/4">
-          {tags.map((tag, index) => (
-            <Tag tag={tag} key={index} />
-          ))}
+      <div className="p-5">
+        <div className="mb-3 flex">
+          <div className="w-3/4">
+            {tags.map((tag, index) => (
+              <Tag tag={tag} key={index} />
+            ))}
+          </div>
+          <div className="w-1/4">
+            <p className="text-right">{rating}/5 ⭐️</p>
+            <p className="text-right">{numberOfReviews} notes</p>
+            <p className="text-right">{priceRange}</p>
+          </div>
         </div>
-        <div className="w-1/4">
-          <p className="text-right">{rating}/5 ⭐️</p>
-          <p className="text-right">{numberOfReviews} notes</p>
-          <p className="text-right">{priceRange}</p>
+        <div className="flex">
+          <div className="w-1/2">
+            <p>{speedOfPreparation} ⚡️</p>
+            <p>{timeToWalkInMn} min 🚶‍♀️</p>
+          </div>
+          <div className="w-1/2 text-right">
+            <button className="mr-2 h-10 w-10 items-center justify-center rounded-full bg-orange-200 hover:bg-orange-500">
+              ✏️
+            </button>
+            <button className="mr-2 h-10 w-10 items-center justify-center rounded-full bg-orange-200 hover:bg-orange-500">
+              ✅
+            </button>
+          </div>
         </div>
       </div>
     </div>
